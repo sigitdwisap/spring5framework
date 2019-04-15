@@ -1,7 +1,6 @@
 package sigit.springframework.spring5webapp.Bootstrap;
 
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import sigit.springframework.spring5webapp.model.Author;
@@ -28,20 +27,21 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private void initData() {
 
         //Eric
-        Author eric = new Author("Eric", "Evans");
-        Book ddd = new Book("Domain Driven Drive", "12345", "Harper Collins");
-        eric.getBooks().add(ddd);
-        ddd.getAuthors().add(eric);
+        Author author1 = new Author("Mark", "Manson");
+        Book book1 = new Book("The Subtle Art of Not Giving A Fuck", "978-602-452-698-6", "HarperOne");
+        author1.getBooks().add(book1);
+        book1.getAuthors().add(author1);
 
-        authorRepository.save(eric);
-        bookRepository.save(ddd);
+        authorRepository.save(author1);
+        bookRepository.save(book1);
 
         //Rod
-        Author rod = new Author("Rod", "Johnson");
-        Book noEJB = new Book("JEE Development without EJB", "23444", "Works");
-        rod.getBooks().add(noEJB);
+        Author author2 = new Author("Sigit", "Saputro");
+        Book book2 = new Book("Bodo Amat", "123456789", "Kaga Ada");
+        author2.getBooks().add(book2);
+        book2.getAuthors().add(author2);
 
-        authorRepository.save(rod);
-        bookRepository.save(noEJB);
+        authorRepository.save(author2);
+        bookRepository.save(book2);
     }
 }
