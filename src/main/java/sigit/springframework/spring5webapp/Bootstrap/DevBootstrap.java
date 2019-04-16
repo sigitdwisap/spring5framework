@@ -5,18 +5,22 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import sigit.springframework.spring5webapp.model.Author;
 import sigit.springframework.spring5webapp.model.Book;
+import sigit.springframework.spring5webapp.model.Publisher;
 import sigit.springframework.spring5webapp.repositories.AuthorRepository;
 import sigit.springframework.spring5webapp.repositories.BookRepository;
+import sigit.springframework.spring5webapp.repositories.PublisherRepository;
 
 @Component
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private AuthorRepository authorRepository;
     private BookRepository bookRepository;
+    private PublisherRepository publisherRepository;
 
-    public DevBootstrap(AuthorRepository authorRepository, BookRepository bookRepository) {
+    public DevBootstrap(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+        this.publisherRepository = publisherRepository;
     }
 
     @Override
@@ -26,9 +30,14 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
     private void initData() {
 
+        Publisher publisher1 = new Publisher();
+        publisher1.setName("HarperOne");
+
+        publisherRepository.save(publisher1);
+
         //Eric
         Author author1 = new Author("Mark", "Manson");
-        Book book1 = new Book("The Subtle Art of Not Giving A Fuck", "978-602-452-698-6", "HarperOne");
+        Book book1 = new Book("The Subtle Art of Not Giving A Fuck", "978-602-452-698-6", publisher1);
         author1.getBooks().add(book1);
         book1.getAuthors().add(author1);
 
@@ -37,7 +46,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
         //Rod
         Author author2 = new Author("Sigit", "Saputro");
-        Book book2 = new Book("Bodo Amat", "123456789", "Kaga Ada");
+        Book book2 = new Book("Bodo Amat", "123456789",  publisher1);
         author2.getBooks().add(book2);
         book2.getAuthors().add(author2);
 
